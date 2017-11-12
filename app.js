@@ -34,6 +34,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/api', api);
 
+app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

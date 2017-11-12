@@ -3,9 +3,11 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/vendor/leaflet/dist/leaflet.css' />
+    <script src='/vendor/leaflet/dist/leaflet.js'></script>
+    <script src='/javascripts/view_index.js'></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  	<div id='map' style='height: 800px;'></div>
   </body>
 </html>
