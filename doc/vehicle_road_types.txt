@@ -1,0 +1,13 @@
+trunk
+primary
+secondary
+tertiary
+unclassified
+road
+residential
+service
+motorway link
+trunk link
+primary link
+secondary link
+tertiary link
