@@ -2,6 +2,7 @@ trunk
 primary
 secondary
 tertiary
+motorway
 unclassified
 road
 residential

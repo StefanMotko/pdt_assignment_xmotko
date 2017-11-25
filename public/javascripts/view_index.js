@@ -1,4 +1,4 @@
-var map;
+var map; 
 
 document.addEventListener('DOMContentLoaded', function() {
 	map = L.map('map').setView([ 48.1459, 17.1071 ], 13);
@@ -13,18 +13,39 @@ document.addEventListener('DOMContentLoaded', function() {
 map.on('click', onMapClick);
 });
 
+// function onMapClick(e) {
+// 	var xhr = new XMLHttpRequest();
+// 	xhr.open('POST','api/nearestRoadPoint');
+// 	xhr.responseType = 'json';
+// 	xhr.setRequestHeader('Content-type', 'application/json');
+// 	xhr.addEventListener('load', function() {
+// 		L.marker(xhr.response.coordinates.reverse()).addTo(map);
+// 	});
+// 	xhr.send(JSON.stringify(e.latlng));
+// }
+
+let waitingRequests = 0;
+
 function onMapClick(e) {
+	waitingRequests++;
+	document.body.style.cursor = 'wait';
 	var xhr = new XMLHttpRequest();
-	xhr.open('POST','api/nearestRoadPoint');
+	xhr.open('POST','api/roadNet');
 	xhr.responseType = 'json';
 	xhr.setRequestHeader('Content-type', 'application/json');
 	xhr.addEventListener('load', function() {
-		L.polyline(xhr.response.coordinates.map(e => e.reverse())).addTo(map, {
-		    color: 'red',
-		    weight: 3,
-		    opacity: 0.5,
-		    smoothFactor: 1
+		waitingRequests--;
+		if (waitingRequests == 0) {
+			document.body.style.cursor = 'default';
+		}
+		xhr.response.forEach((geojson) =>  {
+			L.polyline(geojson.coordinates.map(e => e.reverse()), {
+			    color: 'red',
+			    weight: 3,
+			    opacity: 0.5,
+			    smoothFactor: 1
+			}).addTo(map);
 		});
 	});
-	xhr.send(JSON.stringify(e.latlng));
+	xhr.send(JSON.stringify(Object.assign(e.latlng, { hops: 4 })));
 }
