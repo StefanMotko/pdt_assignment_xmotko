@@ -8,6 +8,14 @@
     <script src='/javascripts/view_index.js'></script>
   </head>
   <body>
+    <div>
+      <button onclick="setNearbyGas()">Find nearby gas station</button>
+      <button onclick="setSource()">Set trip starting location</button>
+      <button onclick="setTarget()">Set trip target location</button>
+      <button onclick="tripCalculate()">Show fuel between start and finish</button>
+      <button onclick="addTripStop()">Add stop</button>
+      <button onclick="calcStops()">Calculate visit list range</button>
+    </div>
   	<div id='map' style='height: 800px;'></div>
   </body>
 </html>
